@@ -416,7 +416,11 @@ class Player():
         for c in self.hand:
             self.purse += c.buypower
         print('\x1b[3;34;47m' + '*****************************' + '\x1b[0m')    #signify
-        print('\x1b[3;34;47m' + '******* POSSIBLE BUYS *******' + '\x1b[0m')
+        print('\x1b[3;34;47m' + '******* POSSIBLE BUYS *******' + '\x1b[0m')supply_order = {0:['Curse','Copper'],2:['Estate','Cellar','Chapel','Moat'],
+                3:['Silver','Chancellor','Village','Woodcutter','Workshop'],
+                4:['Gardens','Bureaucrat','Feast','Militia','Moneylender','Remodel','Smithy','Spy','Thief','Throne Room'],
+                5:['Duchy','Market','Council Room','Festival','Laboratory','Library','Mine','Witch'],
+                6:['Gold','Adventurer'],8:['Province']}
         print('\x1b[3;34;47m' + '*****************************' + '\x1b[0m')
         print("*****************************")
         for value in supply_order:
