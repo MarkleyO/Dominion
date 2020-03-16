@@ -10,6 +10,12 @@ from operator import itemgetter
 import re
 import pandas
 
+supply_order = {0:['Curse','Copper'],2:['Estate','Cellar','Chapel','Moat'],
+                3:['Silver','Chancellor','Village','Woodcutter','Workshop'],
+                4:['Gardens','Bureaucrat','Feast','Militia','Moneylender','Remodel','Smithy','Spy','Thief','Throne Room'],
+                5:['Duchy','Market','Council Room','Festival','Laboratory','Library','Mine','Witch'],
+                6:['Gold','Adventurer'],8:['Province']}
+
 class Card():
     def __init__(self,name,category,cost,buypower,vpoints):
         self.name = name
