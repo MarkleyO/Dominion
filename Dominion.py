@@ -415,6 +415,18 @@ class Player():
         #buy phase
         for c in self.hand:
             self.purse += c.buypower
+        print('\x1b[3;34;47m' + '*****************************' + '\x1b[0m')    #signify
+        print('\x1b[3;34;47m' + '******* POSSIBLE BUYS *******' + '\x1b[0m')
+        print('\x1b[3;34;47m' + '*****************************' + '\x1b[0m')
+        print("*****************************")
+        for value in supply_order:
+            if value < self.purse:          #if within player's buying power
+                print('\x1b[3;32;40m', "VALUE: ", value, '\x1b[0m')    #display card price
+                for stack in supply_order[value]:
+                    if stack in supply:
+                        print('\x1b[3;97;40m', stack, len(supply[stack]), '\x1b[0m')    #display card name
+                print("*****************************")
+
         while self.buys>0:
             buy_string = "Buying power is " + str(self.purse) + ".  You have " + str(self.buys) + " buy"
             if self.buys>1:
