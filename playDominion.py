@@ -28,7 +28,7 @@ def print_action_cards():
     print('\n''\x1b[3;97;40m' + 'Cellar: +1 Action, Discard any number of cards, then draw that many.' + '\x1b[0m')
     print('\n''\x1b[3;97;40m' + 'Remodel: Trash a card from your hand. Gain a card costing up to $2 more than it.' + '\x1b[0m')
     print('\n''\x1b[3;97;40m' + 'Adventurer: Reveal cards from your deck until you reveal 2 Treasure cards. Put those Treasure cards into your hand and discard the other revealed cards.' + '\x1b[0m')
-    print('\n''\x1b[3;97;40m' + 'Feast: rash this card. Gain a card costing up to $5.' + '\x1b[0m')
+    print('\n''\x1b[3;97;40m' + 'Feast: Trash this card. Gain a card costing up to $5.' + '\x1b[0m')
     print('\n''\x1b[3;97;40m' + 'Mine: You may trash a Treasure from your hand. Gain a Treasure to your hand costing up to $3 more than it.' + '\x1b[0m')
     print('\n''\x1b[3;97;40m' + 'Library: Draw until you have 7 cards in hand, skipping any Action cards you choose to; set those aside, discarding them afterwards.' + '\x1b[0m')
     print('\n''\x1b[3;97;40m' + 'Moat: +2 Cards When another player plays an Attack card,  you may first reveal this from your hand, to be unaffected by it.' + '\x1b[0m')

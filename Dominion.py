@@ -67,8 +67,9 @@ class Curse(Card):
         Card.__init__(self,"Curse","curse",0,0,-1)
 
 class Action_card(Card):
-    def __init__(self,name,cost,actions,cards,buys,coins):
+    def __init__(self,name,description,cost,actions,cards,buys,coins):
         Card.__init__(self,name,"action",cost,0,0)
+        self.description = description
         self.actions = actions
         self.cards = cards
         self.buys = buys
@@ -87,31 +88,31 @@ class Action_card(Card):
     
 class Woodcutter(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Woodcutter",3,0,0,1,2)
+        Action_card.__init__(self,"Woodcutter","+1 Buy and +$2",3,0,0,1,2)
 
 class Smithy(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Smithy",4,0,3,0,0)
+        Action_card.__init__(self,"Smithy","+3 Cards",4,0,3,0,0)
 
 class Laboratory(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Laboratory",5,1,2,0,0)
+        Action_card.__init__(self,"Laboratory","+2 Cards +1 Action",5,1,2,0,0)
 
 class Village(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Village",3,2,1,0,0)
+        Action_card.__init__(self,"Village","+1 Cards +2 Action",3,2,1,0,0)
 
 class Festival(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Festival",5,2,0,1,2)
+        Action_card.__init__(self,"Festival","+2 Actions, +1 Buy, and +$2",5,2,0,1,2)
 
 class Market(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Market",5,1,1,1,1)
+        Action_card.__init__(self,"Market","+1 card and +1 Action, +$1, and +1 Buy",5,1,1,1,1)
 
 class Chancellor(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Chancellor",3,0,0,0,2)
+        Action_card.__init__(self,"Chancellor","+$2, You may immediately put your deck into your discard pile",3,0,0,0,2)
     def play(self,player,players,supply,trash):
         if player.yesnoinput('Would you like to discard your entire deck?'):
             player.discard = player.discard + player.deck
@@ -119,13 +120,13 @@ class Chancellor(Action_card):
 
 class Workshop(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Workshop",3,0,0,0,0)
+        Action_card.__init__(self,"Workshop","Gain a card costing up to $4",3,0,0,0,0)
     def play(self,player,players,supply,trash):
         player.gaincard(supply,4)
 
 class Moneylender(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Moneylender",4,0,0,0,0)
+        Action_card.__init__(self,"Moneylender","You may trash a Copper from your hand for +$3",4,0,0,0,0)
     def play(self,player,players,supply,trash):
         c = getcard("Copper",supply,player.hand,"your hand")        
         if c:
@@ -135,7 +136,7 @@ class Moneylender(Action_card):
 
 class Chapel(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Chapel",2,0,0,0,0)
+        Action_card.__init__(self,"Chapel","Trash up to 4 cards from your hand",2,0,0,0,0)
     def play(self,player,players,supply,trash):
         trashed=0        
         while trashed<4 and len(player.hand)>0:
@@ -150,7 +151,7 @@ class Chapel(Action_card):
 
 class Cellar(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Cellar",2,1,0,0,0)
+        Action_card.__init__(self,"Cellar","+1 Action, Discard any number of cards, then draw that many",2,1,0,0,0)
     def play(self,player,players,supply,trash):
         discarded=0        
         while len(player.hand)>0:
@@ -167,7 +168,7 @@ class Cellar(Action_card):
 
 class Remodel(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Remodel",4,0,0,0,0)
+        Action_card.__init__(self,"Remodel","Trash a card from your hand. Gain a card costing up to $2 more than it",4,0,0,0,0)
     def play(self,player,players,supply,trash):
         while len(player.hand)>0:
             this_card = input("Choose a card from your hand to remodel: ")
@@ -180,7 +181,7 @@ class Remodel(Action_card):
 
 class Adventurer(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Adventurer",6,0,0,0,0)
+        Action_card.__init__(self,"Adventurer","Reveal cards from your deck until you reveal 2 Treasure cards. Put those Treasure cards into your hand and discard the other revealed cards",6,0,0,0,0)
     def play(self,player,players,supply,trash):
         coins_added = 0
         while (player.deck or player.discard) and coins_added <2:
@@ -192,7 +193,7 @@ class Adventurer(Action_card):
 
 class Feast(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Feast",4,0,0,0,0)
+        Action_card.__init__(self,"Feast","Trash this card. Gain a card costing up to $5",4,0,0,0,0)
     def use(self,player,trash):
         trash.append(self)
         player.hand.remove(self)
@@ -201,7 +202,7 @@ class Feast(Action_card):
 
 class Mine(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Mine",5,0,0,0,0)
+        Action_card.__init__(self,"Mine","You may trash a Treasure from your hand. Gain a Treasure to your hand costing up to $3 more than it",5,0,0,0,0)
     def play(self,player,players,supply,trash):
         while "coin" in catinlist(player.hand):
             this_card = input("Choose a coin from your hand to upgrade: ")
@@ -220,7 +221,7 @@ class Mine(Action_card):
 
 class Library(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Library",5,0,0,0,0)
+        Action_card.__init__(self,"Library","Draw until you have 7 cards in hand, skipping any Action cards you choose to; set those aside, discarding them afterwards",5,0,0,0,0)
     def play(self,player,players,supply,trash):
         while (player.deck or player.discard) and len(player.hand) <7:
             player.draw(player.hold)
@@ -231,7 +232,7 @@ class Library(Action_card):
 
 class Moat(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Moat",2,0,2,0,0)
+        Action_card.__init__(self,"Moat","+2 Cards When another player plays an Attack card,  you may first reveal this from your hand, to be unaffected by it",2,0,2,0,0)
     def react(self,player):
         player.show()        
         return player.yesnoinput(player.name + ", you have a " + self.name +
@@ -239,14 +240,14 @@ class Moat(Action_card):
 
 class Council_Room(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Council Room",5,0,3,1,0)
+        Action_card.__init__(self,"Council Room","+4 Cards +1 Buy Each other player draws a card",5,0,3,1,0)
     def play(self,this_player,players,supply,trash):
         for player in players:
             player.draw()
 
 class Witch(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Witch",5,0,2,0,0)
+        Action_card.__init__(self,"Witch","+2 Cards Each other player gains a Curse",5,0,2,0,0)
     def play(self,this_player,players,supply,trash):
         if len(supply["Curse"])>0:
             for player in players:
@@ -262,7 +263,7 @@ class Witch(Action_card):
 
 class Bureaucrat(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Bureaucrat",4,0,0,0,0)
+        Action_card.__init__(self,"Bureaucrat","Gain a Silver onto your deck.  Each other player reveals a Victory card from their hand and puts it onto their deck  (or reveals a hand with no Victory cards)",4,0,0,0,0)
     def play(self,this_player,players,supply,trash):
         if len(supply["Silver"])>0:
             this_player.deck.insert(0,supply["Silver"].pop())
@@ -284,7 +285,7 @@ class Bureaucrat(Action_card):
                         
 class Militia(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Militia",4,0,0,0,2)
+        Action_card.__init__(self,"Militia","+$2 Each other player discards down to 3 cards in hand",4,0,0,0,2)
     def play(self,this_player,players,supply,trash):
         for player in players:
             if (not player==this_player) and len(player.hand)>3:
@@ -303,7 +304,7 @@ class Militia(Action_card):
                             
 class Spy(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Spy",4,1,1,0,0)
+        Action_card.__init__(self,"Spy","+1 Card +1 Action Each player (including you) reveals the top card  of his deck and either discards it or puts it back, your choice",4,1,1,0,0)
     def play(self,this_player,players,supply,trash):
         for player in players:
             for c in player.hand:
@@ -324,7 +325,7 @@ class Spy(Action_card):
 
 class Thief(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Thief",4,0,0,0,0)
+        Action_card.__init__(self,"Thief","Each other player reveals the top 2 cards of his deck.  If they revealed any Treasure cards, they trash one of them that you choose.  You may gain any or all of these trashed cards.  They discard the other revealed cards",4,0,0,0,0)
     def play(self,this_player,players,supply,trash):
         for player in players:
             if player == this_player:
@@ -352,7 +353,7 @@ class Thief(Action_card):
 
 class Throne_Room(Action_card):
     def __init__(self):
-        Action_card.__init__(self,"Throne Room",4,0,0,0,0)
+        Action_card.__init__(self,"Throne Room","You may play an Action card from your hand twice",4,0,0,0,0)
     def play(self,player,players,supply,trash):
         if "action" in catinlist(player.hand):
             while True:
@@ -583,6 +584,9 @@ class ComputerPlayer(Player):
                     self.buys = self.buys -1
                     self.purse = self.purse - c.cost
                     print (self.name + " bought " + c.name)
+                    if c.category == "action":
+                        print('\n''\x1b[3;97;40m' + c.description + '\x1b[0m')
+
                 else:
                     self.index += 1
                     
